@@ -133,7 +133,7 @@ def user_sending_photo(message):
 
 @bot.message_handler(func=lambda message: dbworker.get_current_state(message.chat.id) == config.States.S_EDUCATION.value)
 def user_sending_photo(message):
-    bot.send_message(message.chat.id, "Дякую тобі за співбесіду. У найближчий час тобі зателефонують. Гарно настрою.") 
+    bot.send_message(message.chat.id, "Дякую тобі за співбесіду. У найближчий час тобі зателефонують. Гарного настрою.") 
     dbworker.set_state(message.chat.id, config.States.S_START.value)
     info = session.query(Info).filter_by(chat_id=message.chat.id).first()
     info.education = message.text
