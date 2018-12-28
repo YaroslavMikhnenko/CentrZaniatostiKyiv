@@ -23,7 +23,7 @@ def cmd_reset(message):
 
 @bot.message_handler(func=lambda message: dbworker.get_current_state(message.chat.id) == config.States.S_ENTER_NAME.value)
 def user_entering_name(message):
-    # В случае с именем не будем ничего проверять, пусть хоть "25671", хоть Евкакий
+    # В случае с именем не будем ничего проверять
     # save Info(name=message.text, chat_id=message.chat.id
     bot.send_message(message.chat.id, "Відмінне ім'я, запам'ятаю! " +message.text+", тепер вкажи, будь ласка, свій вік.")
     dbworker.set_state(message.chat.id, config.States.S_ENTER_AGE.value)
@@ -36,7 +36,7 @@ def user_entering_name(message):
 
 @bot.message_handler(func=lambda message: dbworker.get_current_state(message.chat.id) == config.States.S_ENTER_AGE.value)
 def user_entering_age(message):
-    # А вот тут сделаем проверку
+    # сделаем проверку
     if not message.text.isdigit():
         # Состояние не меняем, поэтому только выводим сообщение об ошибке и ждём дальше
         bot.send_message(message.chat.id, "Щось не так, спробуй ще раз!")
@@ -105,7 +105,6 @@ def user_sending_photo(message):
 
 @bot.message_handler(func=lambda message: dbworker.get_current_state(message.chat.id) == config.States.S_HOBBY.value)
 def user_sending_photo(message):
-
     bot.send_message(message.chat.id, "вау, круто! Хотів би і я мати хоббі. В якому районі краще працювати в Києві?") 
     dbworker.set_state(message.chat.id, config.States.S_DISTRICT.value)
     info = session.query(Info).filter_by(chat_id=message.chat.id).first()
