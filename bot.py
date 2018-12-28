@@ -18,7 +18,7 @@ def cmd_start(message):
 # По команде /reset будем сбрасывать состояния, возвращаясь к началу диалога
 @bot.message_handler(commands=["reset"])
 def cmd_reset(message):
-    bot.send_message(message.chat.id, "Що ж, почнемо по-новій. Як тебе звати?")
+    bot.send_message(message.chat.id, "Що ж, почнемо наново. Як тебе звати?")
     dbworker.set_state(message.chat.id, config.States.S_ENTER_NAME.value)
 
 @bot.message_handler(func=lambda message: dbworker.get_current_state(message.chat.id) == config.States.S_ENTER_NAME.value)
